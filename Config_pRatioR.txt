@@ -23,12 +23,17 @@ tagMass = 229.162932
 
 tagDecoy = "_INV_"
 
-# Write the name of the Experiments Name to be analyzed
+
+# Input directories where the MSF are located.
+# There are two ways:
+
+#   1. Given a list of directories
+
+# dirsMSF=c("D:/projects/pRatio_R/test", "D:/projects/pRatio_R/test2")
+
+#   2. Given the Experiments and the pattern of folders that contains the MSFs (PESA structure)
 
 Expto=c("TMT1", "TMT2")
-
-# Pattern of folders that contains the MSFs
-
 Patern=c("FR_*")
 
 

@@ -1,0 +1,34 @@
+################################################################################################################
+
+# Params to i-Ratio
+
+################################################################################################################
+
+# Delta Mass Threshold in ppm
+
+deltaMassThreshold = 10
+
+# Delta Mass Areas, number of jumps: 1, 3 or 5
+
+deltaMassAreas = 3
+
+# label Masses
+# tagMass = 229.162932 # for TMT6plex
+# tagMass = 144.102063 # for iTRAQ4plex
+# tagMass = 304.20536  # for iTRAQ8plex
+
+tagMass = 229.162932
+
+# Decoy Tag
+
+tagDecoy = "_INV_"
+
+# Write the name of the Experiments Name to be analyzed
+
+Expto=c("TMT1", "TMT2")
+
+# Pattern of folders that contains the MSFs
+
+Patern=c("FR_*")
+
+

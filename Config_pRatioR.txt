@@ -29,7 +29,7 @@ tagDecoy = "_INV_"
 
 #   1. Given a list of directories
 
-# dirsMSF=c("D:/projects/pRatio_R/test", "D:/projects/pRatio_R/test2")
+dirsMSF=c("D:/projects/pRatio_R/test", "D:/projects/pRatio_R/test2")
 
 #   2. Given the Experiments and the pattern of folders that contains the MSFs (PESA structure)
 

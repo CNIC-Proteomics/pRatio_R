@@ -1,5 +1,41 @@
+##################################################################################
+
+# Get Params
+
+###################################################################################
+
+# clean the environment
+rm(list=ls())
+
+# get (local) working directory
 (WD <- getwd())
 if (!is.null(WD)) setwd(WD)
+
+source(paste0(WD,"/Config_pRatioR.txt"))
+
+# create log file with the parameters
+list_all_vars <- ls(envir=.GlobalEnv)
+start_date <- date()
+INFO <- 
+"##############
+# pRatio_R
+#
+# version: 1.14
+# developed by: Iakes Ezkurdia
+# maintened by: Jose Manuel Rodriguez <jmrodriguezc@cnic.es>
+# start date: %s
+##############
+
+# Given parameters:
+%s
+"
+given_parameters <- ""
+for (var in list_all_vars) {
+  val <- paste(get(var), collapse = ",")
+  given_parameters <- paste0(given_parameters, var," = ", val, sep="\n")
+}
+INFO <- sprintf(INFO, start_date, given_parameters)
+
 
 ################################################################################################################
 
@@ -11,8 +47,6 @@ list.of.packages <- c("RSQLite", "readr", "stringi", "plyr", "Peptides", "XML")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages, repos="http://cran.us.r-project.org")
 
-# Libraries
-
 library("RSQLite")
 library("readr")
 library("stringi")
@@ -20,13 +54,6 @@ library("plyr")
 library("Peptides")
 library("XML")
 
-################################################################################################################
-
-# Get Params
-
-################################################################################################################
-
-source(paste0(WD,"/Config_pRatioR.txt"))
 
 ################################################################################################################
 
@@ -158,7 +185,9 @@ files <- c()
 if ( exists("dirsMSF") && length(dirsMSF) != 0 ) {
   
   for (dirMSF in dirsMSF) {
-    files <- c(files, list.files(path = dirMSF,pattern="*.msf$", full.names = TRUE) )
+    files <- c(files, list.files(path = dirMSF, pattern="*.msf$", full.names = TRUE) )
+    # write log file into each dir
+    write(INFO, file=paste(dirMSF,"/pRatio_R.log",sep=""), append = TRUE)
   }
   
 # 2. from the Experiment and the pattern of folders
@@ -167,7 +196,10 @@ if ( exists("dirsMSF") && length(dirsMSF) != 0 ) {
   MSFfolders <- list.dirs(path = paste0(WD,"/",Expto,"/MSF"), pattern=Patern)
   for (j in Expto) {
     for (k in MSFfolders) {
-      files <- c(files, list.files(path = paste(WD,"/",j,"/MSF/",k,sep=""),pattern="*.msf$", full.names = TRUE) )
+      dirMSF <- paste(WD,"/",j,"/MSF/",k,sep="")
+      files <- c(files, list.files(path=dirMSF, pattern="*.msf$", full.names = TRUE) )
+      # write log file into each dir
+      write(INFO, file=paste(dirMSF,"/pRatio_R.log",sep=""), append = TRUE)
     }
   }
   
